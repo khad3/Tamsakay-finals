@@ -36,6 +36,7 @@
         body {
             background-color: #f5f8fa; /* Light background color */
             font-family: 'Arial', sans-serif;
+           
         }
         body::-webkit-scrollbar{
             display:none;
@@ -81,7 +82,7 @@
 
 
         /* Responsive Design */
-        @media (min-width: 768px) {
+        @media (min-width: 668px) {
             h4 {
                 font-size: 2rem;
             }
@@ -90,20 +91,86 @@
                 font-size: 1.25rem;
                 padding: 1rem 2.5rem;
             }
+
+               /* Custom styles */
+        body {
+            background-color: #f5f8fa; /* Light background color */
+            font-family: 'Arial', sans-serif;
+           
+        }
+        body::-webkit-scrollbar{
+            display:none;
+        }
+
+        .header-image {
+            width: 140px;
+            margin: 0 auto;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            color: #0f172a; /* Text color */
+            font-weight: 700;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .button-container {
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container a button {
+            background-color: #047857; /* Primary green */
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container a button:hover {
+            background-color: #065f46; /* Darker green on hover */
+        }
+
+      img {
+
+        width: 100px;
+        height: 100px;
+        margin-left: 100px;
+        margin-top: 0px;
+      }
         }
         figure img {
     width: 170%;
-    max-width: 170%;
+    max-width: 190%;
     height: auto !important;
+  
    
 }
 img, svg {
     vertical-align: middle;
-    max-width: 320px;
+    max-width: 420px;
+    align:right;
     
 }
+.navbar-brand {
+    padding-top: var(--bs-navbar-brand-padding-y);
+    padding-bottom: var(--bs-navbar-brand-padding-y);
+    margin-right: var(--bs-navbar-brand-margin-end);
+    font-size: var(--bs-navbar-brand-font-size);
+    color: var(--bs-navbar-brand-color);
+    white-space: nowrap;
+    margin-left: 834px;
+}
 footer {
-            margin-top: 20px;
+            margin-top: 120px;
             text-align: center;
             background-color: #05693B;
             color: white;
@@ -116,7 +183,7 @@ footer {
     </style>
 </head>
 <body>
-    <br><br><br><br><br><br> <br><br><br> <!-- para sa space taena-->
+
 <nav class="navbar navbar-expand-lg center-nav transparent navbar-light">
         <div class="container flex-lg-row flex-nowrap align-items-center">
           <div class="navbar-brand w-100">
@@ -169,6 +236,7 @@ footer {
           <!--/.card-body -->
         </div>
         <!--/.card -->
+        <br><br>
         <footer>
     &copy; 2024 Tamsakay. All rights reserved.
 </footer>

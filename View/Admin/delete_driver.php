@@ -9,16 +9,16 @@ if (isset($_GET['id'])) {
 
     try {
         // Step 1: Move the data to the archive table
-        $sql_archive = "INSERT INTO archive_driver_shuttle_info (driver_id, driver_first_name, driver_last_name, driver_username, email, driver_status, available_seats, vehicle_name)
+        $sql_archive = "INSERT INTO archive_driver_shuttle_info (driver_id, driver_first_name, driver_last_name, email, driver_status, available_seats, vehicle_name , vehicle_type)
                 SELECT 
                     for_driver_registration_tbl.driver_id, 
-                    for_driver_registration_tbl.driver_username,
-                    for_driver_registration_tbl.email,
                     for_driver_registration_tbl.driver_first_name, 
                     for_driver_registration_tbl.driver_last_name, 
+                    for_driver_registration_tbl.email,
                     for_driver_registration_tbl.driver_status, 
                     create_shuttle_tbl.available_seats, 
-                    create_shuttle_tbl.vehicle_name
+                    create_shuttle_tbl.vehicle_name,
+                    create_shuttle_tbl.vehicle_type
                 FROM 
                     for_driver_registration_tbl
                 INNER JOIN 

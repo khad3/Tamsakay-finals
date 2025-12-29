@@ -62,6 +62,12 @@ $execute = mysqli_query($db , $sql);
         <td><a href="view_qr_maingate.php" class="btn btn-primary btn-sm">View Qrcode MAINGATE</a></td>
       
         </tr>
+
+        <tr>
+        <td><a href="generate_qrcode_walter.php" class="btn btn-success btn-sm">Generate Qrcode WALTER MART</a></td>
+        <td><a href="view_qr_walter.php" class="btn btn-primary btn-sm">View Qrcode WALTER MART</a></td>
+      
+        </tr>
             
         
     </tr>

@@ -55,16 +55,47 @@
             }
         }
 
-        // Fetch drivers from the database
+        //fetch if the driver already has a shuttle
         $drivers = [];
         $driver_query = "SELECT driver_id, driver_first_name , driver_last_name FROM for_driver_registration_tbl"; 
         $result = $db->query($driver_query);
 
-        if ($result && $result->num_rows > 0) {
+        if ($result && $result->num_rows > 1) {
             while ($row = $result->fetch_assoc()) {
-                $drivers[] = $row; 
+                $drivers_has_shuttle[] = $row; 
             }
         }
+
+        // Fetch drivers from the database
+        $drivers = [];
+        $driver_query = "
+            SELECT d.driver_id, d.driver_first_name, d.driver_last_name, 
+                   IF(s.driver_id IS NOT NULL, 1, 0) AS has_shuttle
+            FROM for_driver_registration_tbl d
+            LEFT JOIN create_shuttle_tbl s ON d.driver_id = s.driver_id
+        "; 
+        
+        $result = $db->query($driver_query);
+        
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $drivers[] = $row;
+                
+                // Display driver name, disabled if already has a shuttle
+                if ($row['has_shuttle']) {
+                   // echo '<option value="' . $row['driver_id'] . '" disabled>' . 
+                          //  $row['driver_first_name'] . ' ' . $row['driver_last_name'] . 
+                       //  ' (Already Assigned)</option>';
+                } else {
+                   // echo '<option value="' . $row['driver_id'] . '">' . 
+                       //     $row['driver_first_name'] . ' ' . $row['driver_last_name'] . 
+                       //  '</option>';
+                }
+            }
+        }
+        
+        
+        
 
         // Handle form submission
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
@@ -136,14 +167,21 @@
                 <input type="number" class="form-control" id="inputEmail4" name="available_seat" value="<?php echo htmlspecialchars($availableseats); ?>" required>
             </div>
             <div class="col-md-4">
-                <label for="driverSelect" class="form-label">Assign Driver</label>
-                <select class="form-control" id="driverSelect" name="driver_id" required>
-                    <option value="">Select Driver</option>
-                    <?php foreach ($drivers as $driver): ?>
-                        <option value="<?php echo $driver['driver_id']; ?>"><?php echo htmlspecialchars($driver['driver_first_name']   . ' ' . $driver['driver_last_name'] ); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+    <label for="driverSelect" class="form-label">Assign Driver</label>
+    <select class="form-control" id="driverSelect" name="driver_id" required>
+        <option value="">Select Driver</option>
+        <?php foreach ($drivers as $driver): ?>
+            <option value="<?php echo $driver['driver_id']; ?>" 
+                <?php echo ($driver['has_shuttle']) ? 'disabled' : ''; ?>>
+                <?php 
+                    echo htmlspecialchars($driver['driver_first_name'] . ' ' . $driver['driver_last_name']); 
+                    echo ($driver['has_shuttle']) ? ' (Already Assigned)' : ''; 
+                ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
 
             <div class="col-12">
                 <center><button type="submit" class="btn btn-success" name="create">UPDATE</button></center>

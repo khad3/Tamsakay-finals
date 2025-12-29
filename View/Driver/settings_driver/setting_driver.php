@@ -116,7 +116,7 @@ if (isset($_SESSION['driver_id'])) {
     if (isset($_POST['change_username'])) {
         try {
             $new_username = $_POST['new_username'];
-            $stmt = $db->prepare("UPDATE for_driver_registration_tbl SET driver_username = ? WHERE driver_id = ?");
+            $stmt = $db->prepare("UPDATE for_driver_registration_tbl SET driver_first_name = ? WHERE driver_id = ?");
             $stmt->bind_param("si", $new_username, $driver_id);
             if ($stmt->execute()) {
                 $message .= "<div class='alert success'>Username updated successfully.</div>";
@@ -152,6 +152,24 @@ if (isset($_SESSION['driver_id'])) {
     exit();
 }
 
+//retrieve driver first name and last name
+
+$retrieve_firstname_lastname = "SELECT driver_first_name , driver_last_name  FROM for_driver_registration_tbl WHERE driver_id = ?";
+if ($stmt = $db->prepare($retrieve_firstname_lastname)) {
+    $stmt->bind_param("i", $driver_id);
+    $stmt->execute();
+    $result = $stmt->get_result();  
+    $row = $result->fetch_assoc();
+
+    if ($row) {
+        $driver_first_name = $row['driver_first_name'];
+        $driver_last_name = $row['driver_last_name'];
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Driver not found.</div>';
+        exit();
+    }
+}
+
 $db->close();
 ?>
 
@@ -166,6 +184,184 @@ $db->close();
    <!-- Link to external CSS -->
    <link rel="stylesheet" href="settingsDriver_css.css">
    <script src="darkmode.js"></script>
+
+   <style>
+    /* Global Styles */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color:rgb(105, 233, 105);
+  margin: 0;
+  padding: 0;
+  color: #2c3e50;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color:rgb(232, 250, 152);
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+h3 {
+  color: #2ecc71;
+  margin-top: 30px;
+}
+
+/* Profile Section */
+.profile-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-picture {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2ecc71;
+  margin-bottom: 15px;
+}
+
+.upload-form input[type="file"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-form button,
+.profile-section button,
+.change-username-section button,
+.back-button button,
+.dark-mode-toggle button {
+  background: linear-gradient(to right, #27ae60, #2ecc71);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  margin: 5px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.upload-form button:hover,
+.profile-section button:hover,
+.change-username-section button:hover,
+.back-button button:hover,
+.dark-mode-toggle button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #2ecc71, #27ae60);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.modal-content h3 {
+  color: #27ae60;
+}
+
+.modal-content input[type="password"],
+.change-username-section input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.modal-content button {
+  width: 100%;
+}
+
+.close {
+  color: #888;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #e74c3c;
+}
+
+/* Change Username Section */
+.change-username-section {
+  margin-top: 30px;
+}
+
+.change-username-section input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* Back Button & Logout */
+.back-button,
+.dark-mode-toggle {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal-content {
+    margin: 20% auto;
+  }
+
+  #backButton {
+    margin-top: 20px;
+    color:rgb(170, 209, 187);
+    
+  }
+}
+
+   </style>
 </head>
 <body>
    <div class="container">
@@ -178,6 +374,10 @@ $db->close();
        <div class="profile-section">
            <img src="<?= htmlspecialchars($profile_pic_url); ?>" class="profile-picture" onerror="this.onerror=null; this.src='/Tamsakay/View/Driver/settings_driver/pfp/tamtam.jpg';" alt="Profile Picture">
 
+        <!-- first name -->
+
+           <h3 style="color: #2ecc71;">Name : <?= htmlspecialchars($driver_first_name);?> &#x1F60E</h3>
+           
            <form action="" method="POST" enctype="multipart/form-data" class="upload-form">
                <input type="file" name="profile_pic" accept="image/*" required>
                <button type="submit">Upload</button>
@@ -207,24 +407,25 @@ $db->close();
 
        <!-- Change Username Section -->
        <div class="change-username-section">
-           <h3>Change Username</h3>
+           <h3>Change Name</h3>
            <form action="" method="POST">
-               <input type="text" name="new_username" placeholder="New Username" required>
-               <button type="submit" name="change_username">Change Username</button>
+               <input type="text" name="new_username" placeholder="New Name" required>
+               <button type="submit" name="change_username">Change name</button>
            </form>
        </div>
 
        <!-- Dark Mode Toggle -->
-       <div class="dark-mode-toggle">
-           <h3>Dark Mode</h3>
-           <button id="darkModeToggle">Toggle Dark Mode</button>
-       </div>
+
 
        <!-- Back Button -->
        <div class="back-button">
-           <a href="/Tamsakay/View/Driver/driver_dashboard.php"><button>Back to Home</button></a>
+                 <h3>Directory</h3>
+           <a href="/Tamsakay/View/Driver/driver_dashboard.php"><button id = "backButton">Back to Home</button></a>
        </div>
-
+    <div class="dark-mode-toggle">
+     
+           <a href="/Tamsakay/View/Driver/logout.php">  <button id="darkModeToggle">Logout</button>
+       </div>
    </div>
 
    <script>

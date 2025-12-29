@@ -109,7 +109,7 @@ if (isset($_POST['leave_waiting_room'])) {
             align-items: center;
             justify-content: center;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/FEU_Cavite_HED_Building.jpg/1280px-FEU_Cavite_HED_Building.jpg');
+                        url('https://assets.onepropertee.com/576x441/crop/listing_images/3.bMoGNuqrTfRtsKAWy.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -217,6 +217,20 @@ if (isset($_POST['leave_waiting_room'])) {
             text-shadow: 1px 1px 2px black;
         }
 
+        .button_leave {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: red;
+                color: aliceblue;
+            }
+
+            .button_games {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: green;
+                color: aliceblue;
+            }
+
         /* iPhone 11-specific viewport responsiveness */
         @media (max-width: 390px) and (max-height: 510px) {
             .solar-system {
@@ -237,6 +251,20 @@ if (isset($_POST['leave_waiting_room'])) {
 
             .button {
                 font-size: 14px;
+            }
+
+            .button_leave {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: red;
+                color: aliceblue;
+            }
+
+            .button_games {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: green;
+                color: aliceblue;
             }
         }
 
@@ -262,11 +290,39 @@ if (isset($_POST['leave_waiting_room'])) {
                 font-size: 12px;
                 padding: 8px 16px;
             }
+
+            .button_leave {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: red;
+                color: aliceblue;
+            }
+
+            .button_games {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: green;
+                color: aliceblue;
+            }
         }
 
         @media (max-width: 480px) {
             .button {
                 width: 90%;
+            }
+
+            .button_leave {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: red;
+                color: aliceblue;
+            }
+
+            .button_games {
+                font-size: 14px;
+                padding: 8px 16px;
+                background-color: green;
+                color: aliceblue;
             }
         }
     </style>
@@ -322,9 +378,9 @@ if (isset($_POST['leave_waiting_room'])) {
 </style>
 
 <div class="button-container">
-    <button class="button" onclick="window.location.href='/Tamsakay/View/User/gamegate.php'">Play Mini Game</button>
+    <button class="button_games" onclick="window.location.href='/Tamsakay/View/User/gamegate.php'">Play Mini Game</button>
     <form method="post" style="display: inline;">
-        <button type="submit" name="leave_waiting_room" class="button">Leave Waiting Room</button>
+        <button type="submit" name="leave_waiting_room" class="button_leave">Leave Waiting Room</button>
     </form>
     <button class="button" onclick="window.location.href='/Tamsakay/View/User/dashboard_user.php'">Return to Dashboard</button>
 </div>

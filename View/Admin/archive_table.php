@@ -46,7 +46,7 @@ if (isset($_GET['retrieve_id'])) {
             }
  
             // Check if the driver already exists in for_driver_registration_tbl
-            $check_sql = "SELECT * FROM for_driver_registration_tbl WHERE driver_id = ?";
+            $check_sql = "SELECT driver_id , driver_first_name , driver_last_name , driver_status  FROM for_driver_registration_tbl WHERE driver_id = ?";
             if ($check_stmt = $db->prepare($check_sql)) {
                 $check_stmt->bind_param("i", $row['driver_id']);
                 $check_stmt->execute();
@@ -55,14 +55,13 @@ if (isset($_GET['retrieve_id'])) {
                 // If the driver exists, update the record
                 if ($check_result->num_rows > 0) {
                     $update_sql = "UPDATE for_driver_registration_tbl
-                                   SET driver_first_name = ?, driver_last_name = ?, driver_status = ?, driver_username = ?, email = ?
+                                   SET driver_first_name = ?, driver_last_name = ?, driver_status = ? , email = ?
                                    WHERE driver_id = ?";
                     if ($update_stmt = $db->prepare($update_sql)) {
-                        $update_stmt->bind_param("sssssi",
+                        $update_stmt->bind_param("sssis",
                             $row['driver_first_name'],
                             $row['driver_last_name'],
                             $row['driver_status'],
-                            $row['driver_username'],
                             $row['email'],
                             $row['driver_id']);
                         $update_stmt->execute();
@@ -70,10 +69,10 @@ if (isset($_GET['retrieve_id'])) {
                     }
                 } else {
                    // If the driver does not exist, insert new record
-$insert_sql_driver = "INSERT INTO for_driver_registration_tbl (driver_id, driver_first_name, driver_last_name, driver_username, email, driver_status)
-VALUES (?, ?, ?, ?, ?, ?)";
+$insert_sql_driver = "INSERT INTO for_driver_registration_tbl (driver_id, driver_first_name, driver_last_name, email,  driver_status)
+VALUES (?, ?, ?, ? , ?)";
 if ($insert_stmt_driver = $db->prepare($insert_sql_driver))
-$insert_stmt_driver->bind_param("isssss",$row['driver_id'], $row['driver_username'], $row['email'], $row['driver_first_name'], $row['driver_last_name'], $row['driver_status']);
+$insert_stmt_driver->bind_param("issss",$row['driver_id'],  $row['driver_first_name'], $row['driver_last_name'], $row['email'] , $row['driver_status'] );
 $insert_stmt_driver->execute();
 $insert_stmt_driver->close();
 }
@@ -82,10 +81,10 @@ $insert_stmt_driver->close();
            
  
             // Insert back into create_shuttle_tbl
-            $insert_sql = "INSERT INTO create_shuttle_tbl (driver_id, available_seats, vehicle_name)
-                           VALUES (?, ?, ?)";
+            $insert_sql = "INSERT INTO create_shuttle_tbl (driver_id, available_seats, vehicle_name , vehicle_type)
+                           VALUES (?, ?, ? , ?)";
             if ($insert_stmt = $db->prepare($insert_sql)) {
-                $insert_stmt->bind_param("iis", $row['driver_id'], $row['available_seats'], $row['vehicle_name']);
+                $insert_stmt->bind_param("iiss", $row['driver_id'], $row['available_seats'], $row['vehicle_name'] , $row['vehicle_type']);
                 $insert_stmt->execute();
                 $insert_stmt->close();
  
@@ -161,8 +160,6 @@ $insert_stmt_driver->close();
         <thead class="thead-dark">
             <tr>
                 <th>Driver ID</th>
-                <th>Driver Username</th>
-                <th>Email</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Driver Status</th>
@@ -177,11 +174,8 @@ $insert_stmt_driver->close();
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($row['driver_id']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['driver_first_name']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['driver_last_name']) . "</td>";
-                    echo "<td>". htmlspecialchars($row["driver_username"]) . "</td>";
-                    echo "<td>". htmlspecialchars($row["email"]) . "</td>";
-                 
+                    echo "<td>" . htmlspecialchars(trim($row['driver_first_name'])) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['driver_last_name']) . "</td>";          
                     echo "<td>" . htmlspecialchars($row['driver_status']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['available_seats']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['vehicle_name']) . "</td>";

@@ -264,7 +264,7 @@ if(isset($_POST['submit'])) {
                                 </div>
                             </div>
  
-                            <div class="form-row">
+                            <!-- <div class="form-row">
                                 <div class="col-12 mb-4">
                                     <div class="form-outline">
                                         <i class="fas fa-user-circle"></i>
@@ -272,18 +272,20 @@ if(isset($_POST['submit'])) {
                                         <label class="form-label" for="username">Username</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
  
                             <div class="form-row">
                                 <div class="col-12 mb-4">
                                     <div class="form-outline">
                                         <i class="fas fa-lock"></i>
-                                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required />
+                                        <input type="password" name="password" id = "mypassword" class="form-control form-control-lg" placeholder="Create password" required />
                                         <label class="form-label" for="password">Password</label>
+                                        
                                     </div>
+                                        
                                 </div>
                             </div>
- 
+                            <input type ="checkbox" onclick="showPassword()"> Show Password 
                             <center><button type="submit" name="submit" class="btn-donate">
                                 Register
                             </button></center>
@@ -302,6 +304,21 @@ if(isset($_POST['submit'])) {
     </footer>
  
     <!-- Bootstrap JS and other scripts -->
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+<script>
+
+function showPassword() {
+
+   var x = document.getElementById("mypassword");
+    if(x.type === "password"){
+        x.type = "text";
+    }else{
+        x.type = "password";
+    }
+
+}
+
+</script>
 </html>

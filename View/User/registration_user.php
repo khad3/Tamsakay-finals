@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     // Variables for user input
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
-    $username = $_POST['username'];
+    //$username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $list = $_POST['passenger_type'];
@@ -130,20 +130,23 @@ if (isset($_POST['submit'])) {
                        placeholder="Enter your email"
                        class="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-feu-green focus:ring-opacity-50">
             </div>
-            <!-- Username -->
+            <!-- Username
             <div>
                 <label for="username" class="block text-sm font-medium text-feu-green">Username</label>
                 <input type="text" name="username"
                        placeholder="Enter your username"
                        class="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-feu-green focus:ring-opacity-50">
-            </div>
+            </div> -->
             <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-feu-green">Password</label>
-                <input type="password" name="password"
-                       placeholder="Enter your password"
+                <input type="password" name="password" id = "mypassword"
+                       placeholder="Create password"
                        class="w-full mt-1 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-feu-green focus:ring-opacity-50">
+
+                      
             </div>
+            <input type = "checkbox" onclick="showpassword()"> Show Password 
             <!-- Submit Button -->
             <div>
                 <button type="submit" name="submit"
@@ -161,6 +164,20 @@ if (isset($_POST['submit'])) {
     <p>© 2024 Tamsakay. All rights reserved.</p>
 </footer>
  
+
 </body>
+
+<script>
+
+function showpassword(){
+    var x = document.getElementById("mypassword");
+    if(x.type === "password"){
+        x.type = "text";
+    }else{
+        x.type = "password";
+    }
+}
+
+</script>
 </html>
  

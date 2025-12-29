@@ -1,111 +1,133 @@
 /* General Styles */
-body {
-   font-family: Arial, sans-serif;
-   margin: 0;
-   padding: 0;
-   background-color: #f4f4f4;
+:root {
+   --font-family: 'Georgia', serif;
+   --background-color: #f9f9f9;
+   --container-bg: #fff;
+   --primary-color: #006633;
+   --secondary-color: #FFCC33;
+   --primary-hover: #004d26;
+   --border-color: #ccc;
+   --text-color-dark: #333;
+   --text-color-light: white;
+   --button-padding: 14px 22px;
+   --border-radius: 8px;
+   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   --header-bg: linear-gradient(90deg, #006633, #004d26);
 }
 
+body {
+   font-family: var(--font-family);
+   margin: 0;
+   padding: 0;
+   background-color: var(--background-color);
+   line-height: 1.6;
+   color: var(--text-color-dark);
+}
+
+header {
+   background: var(--header-bg);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 1px 0px;
+   color: var(--text-color-light);
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.logo{
+   width: 80px;
+   height:auto;
+}
+
+header  {
+   width: 90px;
+   margin-right: 15px;
+}
+
+header h1 {
+   font-size: 28px;
+   font-weight: bold;
+   margin: 0;
+}
+
+/* Container Styles */
 .container {
-   max-width: 800px;
-   margin: 0 auto;
+   max-width: 900px;
+   margin: 20px auto;
    padding: 20px;
-   background-color: white;
-   border-radius: 8px;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   background-color: var(--container-bg);
+   border-radius: var(--border-radius);
+   box-shadow: var(--box-shadow);
 }
 
 /* Profile Section */
 .profile-section {
    text-align: center;
-   margin-bottom: 20px;
+   margin-bottom: 30px;
 }
 
 .profile-picture {
-   width: 150px;
-   height: 150px;
+   width: 160px;
+   height: 160px;
    border-radius: 50%;
    object-fit: cover;
-   border: 2px solid #ddd;
-   margin-bottom: 10px;
+   border: 3px solid var(--primary-color);
+   margin-bottom: 15px;
 }
 
-.upload-form {
-   margin-top: 10px;
+.user-info h2 {
+   color: var(--primary-color);
+   font-size: 24px;
+   margin: 10px 0;
 }
 
-.upload-form input[type="file"] {
-   margin-bottom: 10px;
+.user-info p {
+   color: var(--text-color-dark);
+   font-size: 16px;
 }
 
+/* Button Styles */
+button,
 .upload-form button {
-   padding: 10px 15px;
-   background-color: #007bff;
-   color: white;
+   padding: var(--button-padding);
+   background-color: var(--primary-color);
+   color: var(--text-color-light);
    border: none;
-   border-radius: 4px;
+   border-radius: var(--border-radius);
    cursor: pointer;
+   font-size: 16px;
+   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+button:hover,
 .upload-form button:hover {
-   background-color: #0056b3;
+   background-color: var(--primary-hover);
+   transform: scale(1.05);
 }
 
-/* Buttons */
-button {
-   padding: 10px 15px;
-   margin: 5px 0;
-   background-color: #007bff;
-   color: white;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
+/* Active State for Buttons */
+button:active,
+.upload-form button:active {
+   transform: scale(0.95);
 }
 
-button:hover {
-   background-color: #0056b3;
-}
-
-/* Change Username Section */
-.change-username-section {
-   margin: 20px 0;
-}
-
-.change-username-section h3 {
-   margin-bottom: 10px;
-}
-
-.change-username-section input[type="text"],
-.change-username-section button {
+/* Form Styles */
+.upload-form input[type="file"],
+.upload-form input[type="text"],
+.upload-form input[type="password"] {
    width: 100%;
-   padding: 10px;
-   margin-bottom: 10px;
-   border-radius: 4px;
-   border: 1px solid #ddd;
+   padding: 12px;
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius);
+   margin-bottom: 15px;
+   font-size: 14px;
 }
 
-/* Dark Mode Toggle */
-.dark-mode-toggle {
-   margin: 20px 0;
-   text-align: center;
+.upload-form input:focus {
+   border-color: var(--primary-color);
+   outline: none;
 }
 
-/* Back Button */
-.back-button {
-   text-align: center;
-   margin-top: 20px;
-}
-
-.back-button button {
-   background-color: #6c757d;
-   color: white;
-}
-
-.back-button button:hover {
-   background-color: #5a6268;
-}
-
-/* Modal */
+/* Modal Styles */
 .modal {
    display: none;
    position: fixed;
@@ -114,77 +136,48 @@ button:hover {
    top: 0;
    width: 100%;
    height: 100%;
-   overflow: auto;
    background-color: rgba(0, 0, 0, 0.5);
-   padding-top: 60px;
+   overflow-y: auto;
 }
 
 .modal-content {
-   background-color: #fefefe;
-   margin: 5% auto;
+   background-color: var(--container-bg);
+   margin: 10% auto;
    padding: 20px;
-   border: 1px solid #888;
-   width: 90%;
-   max-width: 400px;
-   border-radius: 8px;
+   border-radius: var(--border-radius);
+   width: 80%;
+   max-width: 500px;
+   box-shadow: var(--box-shadow);
 }
 
 .close {
-   color: #aaa;
-   float: right;
+   color: var(--primary-color);
    font-size: 28px;
    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-   color: black;
-   text-decoration: none;
+   position: absolute;
+   top: 15px;
+   right: 20px;
    cursor: pointer;
 }
 
-/* Media Queries for Mobile Phones */
-@media (max-width: 600px) {
-   .container {
-       padding: 15px;
-   }
-
-   .profile-picture {
-       width: 120px;
-       height: 120px;
-   }
-
-   button {
-       padding: 8px 12px;
-       font-size: 14px;
-   }
-
-   .upload-form input[type="file"],
-   .change-username-section input[type="text"],
-   .change-username-section button {
-       font-size: 14px;
-       padding: 8px;
-   }
-
-   .modal-content {
-       width: 95%;
-   }
+.close:hover {
+   color: var(--primary-hover);
 }
 
-@media (max-width: 400px) {
-   .profile-picture {
-       width: 100px;
-       height: 100px;
-   }
+/* Back Button */
+.back-button button {
+   background-color: var(--secondary-color);
+   color: var(--primary-color);
+   font-weight: bold;
+}
 
-   button {
-       font-size: 12px;
-   }
+.back-button button:hover {
+   background-color: #ffd966;
+}
 
-   .upload-form input[type="file"],
-   .change-username-section input[type="text"],
-   .change-username-section button {
-       font-size: 12px;
-       padding: 6px;
+/* Responsiveness */
+@media (max-width: 768px) {
+   .container {
+       padding: 15px;
    }
 }

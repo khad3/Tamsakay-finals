@@ -550,7 +550,7 @@ function generateLogicPuzzle() {
 
         {
             question: "Sinong taong nagkakagusto sa crush niya wala naman pag asa?",
-            answer: "paw"
+            answer: "khad"
         },
     ];
 

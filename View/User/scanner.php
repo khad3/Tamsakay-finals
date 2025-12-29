@@ -123,7 +123,7 @@
                    openUrlButton.style.display = "block";
                    openUrlButton.onclick = () => window.open(decodeText);
                } else {
-                   qrResultText.innerText = "Your QR code is : " + decodeText;
+                   qrResultText.innerText = "Your QR code is : " + decodeText + " incorrect. please try again!";
                    openUrlButton.style.display = "none";
                }
 

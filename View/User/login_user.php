@@ -7,11 +7,11 @@ $message = ""; // Initialize a variable for feedback
 
 if (isset($_POST['submit'])) {
     // Get username and password from the form
-    $name = $_POST['username'];
+    $name = $_POST['user_email'];
     $pass = $_POST['password'];
 
     // Verify user credentials
-    $stmt = $db->prepare("SELECT user_id, password FROM for_user_registration_tbl WHERE user_name = ?");
+    $stmt = $db->prepare("SELECT user_id, password FROM for_user_registration_tbl WHERE email = ?");
     $stmt->bind_param("s", $name); // Bind username parameter
     $stmt->execute();
     $result = $stmt->get_result();
@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
             $message = "Invalid password."; // Incorrect password
         }
     } else {
-        $message = "Invalid username."; // Username not found
+        $message = "Invalid email."; // Username not found
     }
 
     $stmt->close();
@@ -85,6 +85,8 @@ if (!empty($message)) {
             top: 0;
             z-index: 1000;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content:center;
         }
 
         .main-content {
@@ -178,6 +180,10 @@ if (!empty($message)) {
             color: #006400;
             font-size: 0.9rem;
         }
+        .logo {
+            width: 50px;
+            margin-right: 15px;
+        }
 
         .footer a {
             color: #006400;
@@ -222,7 +228,8 @@ if (!empty($message)) {
 <body>
 
 <div class="header">
-    Welcome to Far Eastern University Portal
+<img src="/Tamsakay/Tamsakay Logo.png" alt="Tamsakay Logo" class="logo">
+<h2>Tamsakay Shuttle Service</h2>
 </div>
 
 <div class="main-content">
@@ -243,8 +250,8 @@ if (!empty($message)) {
 
           <form method="POST">
             <div class="form-outline mb-4">
-              <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required />
-              <label class="form-label" for="username">Username</label>
+              <input type="email" id="username" name="user_email" class="form-control" placeholder="Enter your username" required />
+              <label class="form-label" for="username">Email</label>
             </div>
 
             <div class="form-outline mb-4">
@@ -262,7 +269,7 @@ if (!empty($message)) {
           </div>
         </div>
         <div class="footer">
-          &copy; 2024 <a href="#">Far Eastern University</a>. All rights reserved.
+          &copy; 2024 <a href="landingpage_user.php">Tamsakay</a>. All rights reserved.
         </div>
       </div>
     </div>

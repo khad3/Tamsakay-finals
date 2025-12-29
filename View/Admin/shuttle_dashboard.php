@@ -50,6 +50,7 @@ $execute = mysqli_query($db , $sql);
 
         <?php 
         
+        $counter = 1;
         while($rows = mysqli_fetch_assoc($execute)) { 
             $shuttle_id = $rows['shuttle_id'];
             $vehicle_name = $rows['vehicle_name'];
@@ -60,7 +61,7 @@ $execute = mysqli_query($db , $sql);
         ?>
 
             <tr>
-                <td><?php echo $shuttle_id; ?></td>
+                <td>Shuttle #<?php echo $counter++; ?></td>
                 <td><?php echo $vehicle_name; ?></td>
                 <td><?php echo $vehicle_type; ?></td>
                 <td><?php echo $plate_no; ?></td>

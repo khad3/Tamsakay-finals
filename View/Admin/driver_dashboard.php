@@ -7,17 +7,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php';
 
 $sql = "SELECT 
           for_driver_registration_tbl.driver_id,
-          for_driver_registration_tbl.driver_first_name, 
+ 		  for_driver_registration_tbl.email , 
           for_driver_registration_tbl.driver_last_name, 
-          for_driver_registration_tbl.driver_username,
-          for_driver_registration_tbl.email,
+          for_driver_registration_tbl.driver_first_name,
+      
           for_driver_registration_tbl.driver_status, 
           create_shuttle_tbl.available_seats, 
           create_shuttle_tbl.vehicle_name
+           
         FROM 
          for_driver_registration_tbl
         INNER JOIN 
-         create_shuttle_tbl ON create_shuttle_tbl.driver_id = for_driver_registration_tbl.driver_id ";
+         create_shuttle_tbl ON create_shuttle_tbl.driver_id = for_driver_registration_tbl.driver_id;
+ ";
 
 $execute = mysqli_query($db , $sql);
 
@@ -44,8 +46,8 @@ $execute = mysqli_query($db , $sql);
             <tr>
             <!--<a href="create_driver_info.php" class="btn btn-primary btn-sm">CREATE </a> -->
                 <th scope="col">#</th>
-                <th scope="col">Driver Username</th>
-                <th scope="col">Driver Email</th>
+                <!-- <th scope="col">Driver Username</th>
+                <th scope="col">Driver Email</th> -->
                 <th scope="col">Driver First Name</th>
                 <th scope="col">Driver Last Name</th>
                 <th scope="col">Status</th>
@@ -58,9 +60,10 @@ $execute = mysqli_query($db , $sql);
 
         <?php 
         
+        $counter = 1;
         while($rows = mysqli_fetch_assoc($execute)) { 
             $driver = $rows['driver_id'];
-            $username = $rows['driver_username'];
+          //  $username = $rows['driver_username'];
             $email = $rows['email'];
             $first_name = $rows['driver_first_name'];
             $last_name = $rows['driver_last_name'];
@@ -76,9 +79,9 @@ $execute = mysqli_query($db , $sql);
 
 
             <tr>
-                <td><?php echo $driver; ?></td>
-                <td><?php echo $username; ?></td>
-                <td><?php echo $email; ?></td>
+                <td>Driver # <?php echo $counter++; ?></td>
+                <!-- <td><//?php echo $username; ?></td>
+                <td><//?php echo $email; ?></td> -->
                 <td><?php echo $first_name; ?></td>
                 <td><?php echo $last_name; ?></td>
                 <td><?php
@@ -87,14 +90,10 @@ $execute = mysqli_query($db , $sql);
 
                   echo "<p><a href='active.php?id=".$driver."&status=0' class='btn btn-success btn-sm'>Active</a></p>";
 
-                } else if ($status == 0 ) {
+                } else {
 
-                    echo "<p><a href='active.php?id=".$driver."&status=1' class='btn btn-warning btn-sm'>Waiting . . . </a></p>";
+                    echo "<p><a href='active.php?id=".$driver."&status=2' class='btn btn-danger btn-sm'>Deactive </a></p>";
 
-                }
-                else {
-
-                  echo "<p><a href='active.php?id=".$driver."&status=2' class='btn btn-danger btn-sm'>Deactive </a></p>";
                 }
                 ?> </td>
 

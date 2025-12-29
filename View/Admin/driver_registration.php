@@ -4,12 +4,30 @@ include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/Controller/login_admin_controller
 //include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/Controller/active.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php';
 
-$sql = "SELECT 
-          
-          *
+$sql = "
+            
 
-        FROM 
-          for_driver_registration_tbl";
+            WITH RankedDrivers AS (
+                SELECT 
+                    email, 
+                    driver_id,
+                  driver_first_name, 
+                   driver_last_name, 
+                    driver_username,
+                    driver_status, 
+                      
+                    ROW_NUMBER() OVER (PARTITION BY email, for_driver_registration_tbl.driver_id ORDER BY driver_id) AS rn
+                FROM 
+                    for_driver_registration_tbl
+              
+            )
+
+            select * from RankedDrivers
+          ";
+
+       
+          
+        
 
 $execute = mysqli_query($db , $sql);
 
@@ -38,8 +56,8 @@ $execute = mysqli_query($db , $sql);
             
            
                 <th scope="col">Driver #</th>
-                <th scope="col">Driver Username</th>
-                <th scope="col">Driver Email</th>
+                <!-- <th scope="col">Driver Username</th>
+                <th scope="col">Driver Email</th> -->
                 <th scope="col">Driver firstname</th>
                 <th scope="col">Driver lastname</th>
                 <th scope="col">Status</th>
@@ -50,6 +68,7 @@ $execute = mysqli_query($db , $sql);
 
         <?php 
         
+        $counter = 1;
         while($rows = mysqli_fetch_assoc($execute)) { 
             $driver_id = $rows['driver_id'];
             $username = $rows['driver_username'];
@@ -61,9 +80,9 @@ $execute = mysqli_query($db , $sql);
         ?>
 
             <tr>
-                <td><?php echo $driver_id; ?></td>
-                <td><?php echo $username; ?></td>
-                <td><?php echo $email; ?></td>
+                <td>Driver # <?php echo $counter++; ?></td>
+                <!-- <td><//?php echo $username; ?></td>
+                <td><//?php echo $email; ?></td> -->
                 <td><?php echo $first_name; ?></td>
                 <td><?php echo $last_name; ?></td>
                 <td><?php

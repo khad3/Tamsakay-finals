@@ -52,6 +52,19 @@
             }
         }
 
+        //fetch if driver already has a shuttle
+        $shuttle_query = "SELECT driver_id FROM create_shuttle_tbl WHERE driver_id = ?";
+        if ($stmt = $db->prepare($shuttle_query)) {
+            $stmt->bind_param("i", $driver_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                echo '<div class="alert alert-danger" role="alert">Driver already has a shuttle!</div>';
+                exit();
+            }
+            $stmt->close();
+        }
+
         // Fetch shuttles from the database
         $shuttles = [];
         $shuttle_query = "SELECT shuttle_id, vehicle_name FROM create_shuttle_tbl"; 

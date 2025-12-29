@@ -23,8 +23,8 @@ if (isset($_SESSION['user_id'])) {
         $stmt->close();
     }
 
-    // Check if the user's location is HED
-    if ($user_location === 'hed') {
+    // Check if the user's location is walter
+    if ($user_location === 'waltermart') {
         // Add the current user to the waiting_room table if not already added
         $add_user_sql = "INSERT INTO passenger_logs_hed_tbl (user_id) VALUES (?) 
                          ON DUPLICATE KEY UPDATE user_id = user_id"; // Prevent duplication
@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
             COALESCE(profile_pic.pic_url, '/Tamsakay/View/User/settings/pfp/tamtam.png') AS pic_url
         FROM passenger_logs_hed_tbl
         LEFT JOIN profile_pic ON passenger_logs_hed_tbl.user_id = profile_pic.user_id
-        WHERE passenger_logs_hed_tbl.location = 'HED'";
+        WHERE passenger_logs_hed_tbl.location = 'WALTERMART'";
     $result = $db->query($fetch_users_sql);
 
         $profile_pictures = [];
@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
         $user_count = count($profile_pictures);
     } else {
         // If the user's location is not HED, redirect to a different page or show an error
-        echo "Access denied. Your location is not HED.";
+        echo "Access denied. Your location is not WALTERMART.";
         exit();
     }
 
@@ -119,7 +119,7 @@ if (isset($_POST['leave_waiting_room'])) {
             align-items: center;
             justify-content: center;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/FEU_Cavite_HED_Building.jpg/1280px-FEU_Cavite_HED_Building.jpg');
+                        url('https://waltermart.com.ph/wp-content/uploads/2024/10/silang-facade2.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -225,22 +225,12 @@ if (isset($_POST['leave_waiting_room'])) {
             width: 100%;
             font-size: 14px;
             text-shadow: 1px 1px 2px black;
-
-            
         }
 
-        .button_games {
-                font-size: 14px;
-                padding: 8px 16px;
-                background-color: green;
-                color: aliceblue;
-            }
-
-            .button_leave {
+        .button_leave {
                 font-size: 14px;
                 padding: 8px 16px;
                 background-color: red;
-                color: aliceblue;
             }
 
             .button_games {
@@ -309,7 +299,6 @@ if (isset($_POST['leave_waiting_room'])) {
                 font-size: 12px;
                 padding: 8px 16px;
             }
-
             .button_leave {
                 font-size: 14px;
                 padding: 8px 16px;
@@ -349,7 +338,7 @@ if (isset($_POST['leave_waiting_room'])) {
 <body>
 
 <header>
-    <h1>Welcome to the Waiting Room HED</h1>
+    <h1>Welcome to the Waiting Room Waltermart</h1>
 </header>
 
 <div class="solar-system">
