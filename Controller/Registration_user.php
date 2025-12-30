@@ -1,10 +1,10 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php'; // Ensure db.php contains a mysqli connection
+include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay-finals/db.php'; // Ensure db.php contains a mysqli connection
  //include the php mailer
 
- include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/vendor/autoload.php';
+ include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay-finals/vendor/autoload.php';
 
- use PHPMailer\PHPMailer\PHPMailer;
+ use PHPMailer\PHPMailer\PHPMailer; 
  use PHPMailer\PHPMailer\Exception;
 
  class User_registration {

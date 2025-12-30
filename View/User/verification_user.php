@@ -91,8 +91,8 @@
 
     <?php 
     
-    include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/Controller/verification.php';
-    include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/tamsakay-finals/Controller/verification.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/tamsakay-finals/db.php';
     if (isset($_POST['submit'])) {
         //variables for user input
         $verification_code = $_POST['verification_code'];
@@ -109,7 +109,7 @@
             <button type="submit" name="submit">Verify</button>
         </form>
         <div class="info">
-            <p>Didn't receive a code? Check your email or <a href="/Tamsakay/View/Driver/forgot_password_driver.php" style="color: #05683B; text-decoration: none;">request a new one</a>.</p>
+            <p>Didn't receive a code? Check your email or <a href="/tamsakay-finals/View/Driver/forgot_password_driver.php" style="color: #05683B; text-decoration: none;">request a new one</a>.</p>
         </div>
     </div>
 </body>

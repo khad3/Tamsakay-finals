@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session
 
-include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php'; // Database connection
+include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay-finals/db.php'; // Database connection
 
 $message = ""; // Initialize a variable for feedback
 

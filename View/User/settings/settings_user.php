@@ -120,7 +120,7 @@ if (isset($_SESSION['user_id'])) {
 
         // Prepare to upload the new image 
 
-        $target_dir = "/Tamsakay/View/User/settings/pfp/"; 
+        $target_dir = "/tamsakay-finals/View/User/settings/pfp/"; 
 
         // Generate a unique filename to prevent overwriting 
 

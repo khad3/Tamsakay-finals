@@ -1,6 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/Controller/Registration_user.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay/db.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay-finals/Controller/Registration_user.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Tamsakay-finals/db.php';
 
 if (isset($_POST['submit'])) {
     // Variables for user input
@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
 <!-- Header -->
 <header class="py-4 shadow-md">
     <div class="header-container container mx-auto">
-        <img src="/Tamsakay/Tamsakay Logo.png" alt="Tamsakay Logo" class="logo">
+        <img src="/tamsakay-finals/Tamsakay Logo.png" alt="Tamsakay Logo" class="logo">
         <h1 class="text-2xl font-bold text-white">Tamsakay Shuttle Service</h1>
     </div>
 </header>
